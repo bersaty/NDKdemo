@@ -1,5 +1,7 @@
 package demo.ndkjnidemo;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(waterWaveView);
 
         Log.i("wch jnitest = ",JniUtils.getStringFormC());
+        Bitmap bgImage = BitmapFactory.decodeResource(this.getResources(), R.drawable.bg);
+        JniUtils.processBitmap(bgImage);
     }
 
 }

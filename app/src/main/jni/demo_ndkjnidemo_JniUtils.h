@@ -10,7 +10,10 @@ JNIEXPORT void JNICALL Java_demo_ndkjnidemo_JniUtils_setBitmap(JNIEnv *env, jcla
 
 JNIEXPORT void JNICALL Java_demo_ndkjnidemo_JniUtils_render(JNIEnv *env, jclass type, jobject dst);
 
-JNIEXPORT void JNICALL Java_demo_ndkjnidemo_JniUtils_drop(JNIEnv *env, jclass type, jint x, jint y, jint height);
+JNIEXPORT void JNICALL Java_demo_ndkjnidemo_JniUtils_drop(JNIEnv *env, jclass type, jint x, jint y,
+                                                          jint height);
+
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -22,6 +25,8 @@ extern "C" {
  */
 JNIEXPORT jstring JNICALL Java_demo_ndkjnidemo_JniUtils_getStringFormC(JNIEnv *, jobject);
 
+JNIEXPORT jint JNICALL Java_demo_ndkjnidemo_JniUtils_processBitmap(JNIEnv *env, jclass type,
+                                                                   jobject bmpObj);
 #ifdef __cplusplus
 }
 #endif

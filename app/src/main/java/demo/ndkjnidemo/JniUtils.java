@@ -13,4 +13,5 @@ public class JniUtils {
     public static native void setBitmap(Bitmap src);
     public static native void render(Bitmap dst);
     public static native void drop(int x, int y, int height);
+    public static native int processBitmap(Bitmap bitmap);
 }
