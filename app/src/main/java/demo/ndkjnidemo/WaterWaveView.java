@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -50,6 +51,8 @@ public class WaterWaveView extends SurfaceView implements SurfaceHolder.Callback
         if (!firstLoad) {
             bgImage = BitmapFactory.decodeResource(this.getResources(), R.drawable.bg);
             bgImage = Bitmap.createScaledBitmap(bgImage, w, h, false);// 缩放而已
+            JniUtils.processBitmap(bgImage);
+
             backWidth = bgImage.getWidth();
             backHeight = bgImage.getHeight();
 
@@ -73,7 +76,8 @@ public class WaterWaveView extends SurfaceView implements SurfaceHolder.Callback
 
             fiveWidth = 5 * backWidth;
 
-            loopTime = ((backHeight - 4) * backWidth) >> 1;
+            loopTime = ((backHeight - 4) * backWidth) >> 2;
+            Log.i("wch looptime = ",loopTime+" ~~~");
 
             bitmapLen = backWidth * backHeight - 1;
 
@@ -118,7 +122,7 @@ public class WaterWaveView extends SurfaceView implements SurfaceHolder.Callback
                     + buf1[k - doubleWidth] + buf1[k + doubleWidth]) >> 1) - buf2[k]);
 
             // 波能衰减
-            buf2[k] = (short) (buf2[k] - (buf2[k] >> 5));
+            buf2[k] = (short) (buf2[k] - (buf2[k] >> 6));
 
             // 求出该点的左上的那个点xoff,yoff
             cp = k - doubleWidth - 2;
@@ -213,7 +217,7 @@ public class WaterWaveView extends SurfaceView implements SurfaceHolder.Callback
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            touchWater((int) event.getX(), (int) event.getY(), 4, 160);
+            touchWater((int) event.getX(), (int) event.getY(), 6, 50);
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             trickWater((int) event.getX(), (int) event.getY(), 2, 64);
         }
